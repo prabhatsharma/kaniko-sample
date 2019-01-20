@@ -13,9 +13,9 @@ This will be used by kaniko for authenticating to ecr while pushing the image.
 1. Update your bucket name in build-with-kaniko-and-deploy.sh file
 1. Execute the build-with-kaniko-and-deploy.sh file. 
     > ./build-with-kaniko-and-deploy.sh
-    
+
     This will do following:
-    1. Build the kaniko context file (tar file that has all artifacts that are required to build image)
+    1. Build the kaniko context file (tar file that has all artifacts that are required to build image). To view contents of tar file use command $ tar -tvf simplesite.tar.gz
     1. Copy the context file to S3
     1. Create the pod. Pod will build the image and push it to ECR
     1. wait for the kaniko pod to deploy and follow its logs for tracking progress
