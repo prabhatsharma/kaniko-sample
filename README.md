@@ -4,7 +4,7 @@ This repo gives an example of how to build containers using kaniko without privi
 
 Steps:
 
-1. Create docker config file for ecr credentials helper (as specified at https://github.com/awslabs/amazon-ecr-credential-helper)
+1. Create docker config map for ecr credentials helper (as specified at https://github.com/awslabs/amazon-ecr-credential-helper)
 
 > kubectl apply -f docker-config-map.yaml
 
