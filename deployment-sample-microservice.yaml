@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simplesite
+  name: sample-microservice
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: simplesite
+      app: sample-microservice
   template:
     metadata:
       labels:
-        app: simplesite
+        app: sample-microservice
     spec:
       containers:
-      - name: simplesite
-        image: 107995894928.dkr.ecr.us-west-2.amazonaws.com/simplesite:1
+      - name: sample-microservice
+        image: 107995894928.dkr.ecr.us-west-2.amazonaws.com/sample-microservice:latest
         resources:
           requests:
             memory: 50Mi
@@ -23,7 +23,7 @@ spec:
             memory: 200Mi
             cpu: 200m
         ports:
-        - containerPort: 80
+        - containerPort: 8080
       
 
 

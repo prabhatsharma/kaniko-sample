@@ -3,20 +3,35 @@ kind: Pod
 metadata:
   name: kaniko
 spec:
+  initContainers:
+  - name: git-cloner
+    image: alpine/git
+    command: ["git", "clone", "https://github.com/prabhatsharma/sample-microservice", "/source-code"]
+    volumeMounts:
+      - name: source-code
+        mountPath: /source-code
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
     args: ["--dockerfile=./Dockerfile",
-            "--context=s3://prabhat00-public/kaniko/simplesite.tar.gz",
-            "--destination=107995894928.dkr.ecr.us-west-2.amazonaws.com/simplesite:1"]
+            "--context=/source-code",
+            "--destination=107995894928.dkr.ecr.us-west-2.amazonaws.com/sample-microservice:latest"]
     volumeMounts:
       - name: docker-config
         mountPath: /kaniko/.docker/
+      - name: source-code
+        mountPath: /source-code/
     env:
       - name: AWS_REGION
         value: us-west-2
+    resources:
+      limits:
+        memory: 500Mi
+        cpu: 2000m
   restartPolicy: Never
   volumes:
     - name: docker-config
       configMap:
         name: docker-config
+    - name: source-code
+      emptyDir: {}
